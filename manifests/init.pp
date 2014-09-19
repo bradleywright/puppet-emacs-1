@@ -4,6 +4,10 @@
 #
 # === Parameters
 #
+# [*version*]
+#   The version to install.
+#   Default: 24.2
+#
 # [*emacs_src_dir*]
 #   The location to unpack the tarball.
 #   Default: /opt/emacs-src
@@ -21,6 +25,7 @@
 # Copyright 2012 Thomas Van Doren, unless otherwise noted
 #
 class emacs (
+  $version       = '24.2',
   $emacs_src_dir = '/opt/emacs-src',
   ) {
   case $::osfamily {
@@ -53,7 +58,7 @@ class emacs (
   }
   file { 'emacs.tar.gz':
     path   => "${emacs_src_dir}/emacs.tar.gz",
-    source => 'puppet:///modules/emacs/emacs-24.2.tar.gz',
+    source => "puppet:///modules/emacs/emacs-${version}.tar.gz",
   }
   Exec {
     cwd   => $emacs_src_dir,
